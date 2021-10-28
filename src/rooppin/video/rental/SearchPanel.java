@@ -71,7 +71,7 @@ public class SearchPanel extends JPanel
 		centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
 		
 		JScrollPane scrollFrame = new JScrollPane(centralPanel);
-		scrollFrame.setPreferredSize(new Dimension( 850,450));
+		scrollFrame.setPreferredSize(new Dimension( 850,430));
 		centralPanel.setAutoscrolls(true);
 		scrollFrame.setAlignmentX(LEFT_ALIGNMENT);
 		

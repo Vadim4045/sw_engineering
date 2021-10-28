@@ -324,7 +324,7 @@ class UserDbService extends DbService
 			String com;
 			conn = pool.getConnection();
 			Statement statement = conn.createStatement();
-			com="update `imdb`.`inventory` set `ordered`= null  where `ordered`= " + id +" ;";
+			com="update `imdb`.`inventory` set `ordered`= null  where `ordered`= '" + id +"';";
 			statement.executeUpdate(com);
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -557,4 +557,44 @@ class UserDbService extends DbService
 		}
 		return null;
 	}
+	
+	
+	/**
+	 * Book specific inventory film by ImDB code
+	 * to current user(not submit)
+	 * 
+	 * @param tconst
+	 * @return inner inventory code of booked film
+	 */
+	String getInventory(String tconst) {
+		Connection conn = null;
+		try
+		{
+			conn = pool.getConnection();
+			Statement statement = conn.createStatement();
+			String userID = parent.getUserId();
+			String com = "update `imdb`.`inventory` set `ordered`='" 
+					+ userID + "' where `tconst`='" + tconst + "' limit 1;";
+			if(statement.executeUpdate(com)>0) {
+				com = "SELECT `inventory` FROM `imdb`.`inventory` where `tconst`='"
+							+ tconst + "' and `ordered`='" + userID + "';";
+				ResultSet res = statement.executeQuery(com);
+				if(res.next()) return res.getString(1);
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (conn != null) {
+				try {
+					pool.returnConnection(conn);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+
+
 }
