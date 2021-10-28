@@ -5,11 +5,20 @@ import java.awt.event.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
+/**
+ * Menu bar for main window
+ */
 class MenuPanel extends JMenuBar implements ActionListener
 {
 	ApplicationWindow parent = null;
 	JMenu mainMenu, userMenu, adminMenu;
 	JLabel infoLabel;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param parent
+	 */
 	MenuPanel(ApplicationWindow parent)
 	{
 		this.parent=parent;
@@ -21,6 +30,11 @@ class MenuPanel extends JMenuBar implements ActionListener
 		state(0);
 	}
 	
+	/**
+	 * Repaint menu bar depending on the current user access level
+	 * 
+	 * @param level
+	 */
 	void state(int level) {
 		topTitle("Hellow " + parent.user.getName());
 		this.removeAll();
@@ -45,16 +59,31 @@ class MenuPanel extends JMenuBar implements ActionListener
 		this.repaint();
 	}
 	
+	/**
+	 * Singletone pattern
+	 * 
+	 * @return
+	 */
 	private JMenu getUserMenu(){
 		if(userMenu==null)userMenu=userMenu();
 		return userMenu;
 	}
 	
+	/**
+	 * Singletone pattern
+	 * 
+	 * @return
+	 */
 	private JMenu getAdminMenu() {
 		if(adminMenu==null)adminMenu=adminMenu();
 		return adminMenu;
 	}
 	
+	/**
+	 * Make admin menu
+	 * 
+	 * @return
+	 */
 	private JMenu adminMenu()
 	{
 		JMenuItem menuItem;
@@ -69,6 +98,11 @@ class MenuPanel extends JMenuBar implements ActionListener
 		return menu;
 	}
 	
+	/**
+	 * Make registered user menu
+	 * 
+	 * @return
+	 */
 	private JMenu userMenu()
 	{
 		JMenuItem menuItem;
@@ -98,6 +132,11 @@ class MenuPanel extends JMenuBar implements ActionListener
 		return menu;
 	}
 	
+	/**
+	 * Make unregistered user menu
+	 * 
+	 * @return
+	 */
 	private JMenu mainMenu()
 	{
 		JMenuItem menuItem;
@@ -133,6 +172,11 @@ class MenuPanel extends JMenuBar implements ActionListener
 		return menu;
 	}
 	
+	/**
+	 * Make top title panel
+	 * 
+	 * @param msg
+	 */
 	void topTitle(String msg) {
 		StringBuilder s = new StringBuilder();
 		for(int i=0;i<50-msg.length()/2;i++) {
@@ -145,6 +189,9 @@ class MenuPanel extends JMenuBar implements ActionListener
 	}
 	
 	@Override
+	/**
+	 * Action event handler
+	 */
 	public void actionPerformed(ActionEvent event) {
 		switch(event.getActionCommand())
 		{
