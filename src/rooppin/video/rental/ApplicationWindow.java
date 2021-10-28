@@ -147,17 +147,6 @@ public class ApplicationWindow extends SearchAppFrame
 	}
 	
 	/**
-	 * Invoke DbServise to book film by IMDB code
-	 * Returns specific inner inventory code of booked film
-	 * 
-	 * @param tconst imdb code
-	 * @return invconst inner inventory code
-	 */
-	/*public String getInventory(String tconst) {
-		return dbService.getInventory(tconst);
-	}*/
-	
-	/**
 	 * Open login dialog and invoke FileSystemService
 	 *  to check inputed data
 	 * 
