@@ -153,9 +153,9 @@ public class ApplicationWindow extends SearchAppFrame
 	 * @param tconst imdb code
 	 * @return invconst inner inventory code
 	 */
-	public String getInventory(String tconst) {
+	/*public String getInventory(String tconst) {
 		return dbService.getInventory(tconst);
-	}
+	}*/
 	
 	/**
 	 * Open login dialog and invoke FileSystemService

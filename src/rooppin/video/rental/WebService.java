@@ -4,14 +4,24 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.*;
 import java.util.*;
-
 import javax.imageio.ImageIO;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
+/**
+ * Static web utility class
+ * Implements all web access functions
+ */
 public class WebService
 {
 
+	/**
+	 * Gets film data from Imdb API by Imdb code
+	 * 
+	 * @param tconst
+	 * @return
+	 * @throws MalformedURLException
+	 */
 	static HashMap<String,String> getFilmData(String tconst) throws MalformedURLException
 	{
 		String urlString = "http://www.omdbapi.com/?i=" + tconst + "&apikey=82479121";
@@ -49,6 +59,9 @@ public class WebService
 		 return result;
 	}
 
+	/**
+	 * Gets poster image from web by URI
+	 */
 	public static BufferedImage getPoster(String uri) {
 		URL url;
 		BufferedImage image = null;
@@ -65,6 +78,14 @@ public class WebService
 		return image;
 	}
 
+	/**
+	 * Parse JSON response to HashMap
+	 * 
+	 * @param data
+	 * @param post
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings("rawtypes")
 	private static HashMap<String,String> jsonParse(String data, String post) throws Exception
 	{

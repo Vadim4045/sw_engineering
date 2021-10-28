@@ -3,13 +3,28 @@ package rooppin.video.rental;
 import java.sql.*;
 import java.util.*;
 
+/**
+ *  A logical continuation of the DbService class.
+ * Implements other database operations
+ */
 class UserDbService extends DbService
 {
+	/**
+	 * Constructor
+	 * 
+	 * @param parent
+	 */
 	UserDbService(ApplicationWindow parent)
 	{
 		super(parent);
 	}
 	
+	/**
+	 * Insert regictration data of new registered user
+	 * 
+	 * @param u
+	 * @return
+	 */
 	boolean addNewUser(RegisteredUser u) {
 		final String [] details= {"Id","Name","Telephone","Email","City","Street","House","Entry","Appartment","level"};
 		StringBuilder str1 = new StringBuilder();
@@ -45,6 +60,12 @@ class UserDbService extends DbService
 		return false;
 	}
 	
+	/**
+	 * Returns fur data of registered user by email
+	 * 
+	 * @param s
+	 * @return
+	 */
 	HashMap<String,String> getUserByEmail(String s){
 		
 		if(s==null || s.length()<5) return null;
@@ -79,6 +100,12 @@ class UserDbService extends DbService
 		return null;
 	}
 
+	/**
+	 * Update user data
+	 * 
+	 * @param u
+	 * @return
+	 */
 	boolean updateUser(RegisteredUser u) {
 		final String [] details= {"Name","Telephone","Email","City","Street","House","Entry","Appartment","level"};
 		StringBuilder str1 = new StringBuilder();
@@ -111,7 +138,15 @@ class UserDbService extends DbService
 		return false;
 	}
 
-	String getInventory(String tconst) {
+	
+	/**
+	 * Book specific inventory film by ImDB code
+	 * to current user(not submit)
+	 * 
+	 * @param tconst
+	 * @return inner inventory code of booked film
+	 */
+	/*String getInventory(String tconst) {
 		Connection conn = null;
 		try
 		{
@@ -139,8 +174,14 @@ class UserDbService extends DbService
 			}
 		}
 		return null;
-	}
+	}*/
 
+	/**
+	 * Book number for new Order
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	int newOrderNumber(String userId) {
 		Connection conn = null;
 		try
@@ -168,6 +209,12 @@ class UserDbService extends DbService
 		return -1;
 	}
 
+	/**
+	 * Set given Order as payed
+	 * 
+	 * @param orderNumber
+	 * @return
+	 */
 	boolean setPayed(int orderNumber) {
 		Connection conn = null;
 		try
@@ -191,6 +238,14 @@ class UserDbService extends DbService
 		return false;
 	}
 
+	/**
+	 * Mark all ordered films as rented
+	 * and current order as submited
+	 * 
+	 * @param orderNumber
+	 * @param orderedInStock
+	 * @return
+	 */
 	boolean submitOrder(int orderNumber, HashMap<String, Film> orderedInStock) {
 		Connection conn = null;
 		try
@@ -226,6 +281,13 @@ class UserDbService extends DbService
 		return false;
 	}
 
+	/**
+	 * Book specific inventory film by ImDB code
+	 * to current user(not submit)
+	 * 
+	 * @param tconst
+	 * @return inner inventory code of booked film
+	 */
 	String orderFilm(Film film, String userID) {
 		Connection conn = null;
 		try
@@ -236,7 +298,6 @@ class UserDbService extends DbService
 			com="update `imdb`.`inventory` set `ordered`=" + userID 
 				+ " where `tconst`='" + film.tconst + "' and `ordered` is null limit 1;";
 			if(statement.executeUpdate(com)>0) {
-				//statement = conn.createStatement();
 				com = "select `invconst` from `imdb`.`inventory` where `tconst`='" 
 						+ film.tconst + "' and `ordered`=" + userID + ";";
 				ResultSet res = statement.executeQuery(com);
@@ -256,6 +317,14 @@ class UserDbService extends DbService
 		return null;
 	}
 
+	/**
+	 * Unbooking specific inventory film 
+	 * (not ordered)
+	 * 
+	 * @param inv
+	 * @param userID
+	 * @return
+	 */
 	boolean removeOrderFilmFromDB(String inv, String userID) {
 		Connection conn = null;
 		try
@@ -280,6 +349,12 @@ class UserDbService extends DbService
 		return false;
 	}
 
+	/**
+	 * Unbooking all marked films
+	 * (no submit order)
+	 * 
+	 * @param id
+	 */
 	void logOut(String id) {
 		Connection conn = null;
 		try
@@ -302,6 +377,15 @@ class UserDbService extends DbService
 		}		
 	}
 
+	/**
+	 * Start extended admin search in base
+	 * (admin mode)
+	 * 
+	 * @param mode
+	 * @param type
+	 * @param input
+	 * @return
+	 */
 	public HashMap<String, String> getAdminSearch(String mode, String type, String input) {
 		HashMap<String, String> result = new HashMap<String, String>();
 		String command = "call adminSearch ('" + mode + "', '" + type + "', '" + input + "');";
@@ -341,6 +425,12 @@ class UserDbService extends DbService
 		return result;
 	}
 
+	/**
+	 * Permanently delete user from base by ID
+	 * (admin mode)
+	 * 
+	 * @param id
+	 */
 	public void deleteUser(String id) {
 		Connection conn = null;
 		try
@@ -362,6 +452,12 @@ class UserDbService extends DbService
 		}
 	}
 
+	/**
+	 * Mark Order as closed
+	 * and all ordered films as returned
+	 * 
+	 * @param orderNumber
+	 */
 	public void closeOrder(int orderNumber) {
 		Connection conn = null;
 		try
@@ -394,8 +490,11 @@ class UserDbService extends DbService
 		}
 	}
 
+	/**
+	 * Gets all films ordered in specific order
+	 * (admin mode)
+	 */
 	public Vector<String> getOrderedFilms(int orderNumber) {
-		
 		Vector<String> result = new Vector<String>();
 			Connection conn = null;
 			try
@@ -424,6 +523,12 @@ class UserDbService extends DbService
 			return result;
 	}
 
+	/**
+	 * Gets pay status of specific order
+	 * 
+	 * @param orderNumber
+	 * @return
+	 */
 	public boolean getPayed(int orderNumber) {
 		Connection conn = null;
 		try
@@ -452,6 +557,12 @@ class UserDbService extends DbService
 		return false;
 }
 
+	/**
+	 * Gets all user data by user ID
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public HashMap<String, String> getUserById(String id) {
 		if(id==null || id.length()!=9) return null;
 		HashMap<String,String> set = new HashMap<String,String>();

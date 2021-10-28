@@ -3,22 +3,58 @@ package rooppin.video.rental;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Utilitis class to fulfill all database procedures
+ */
 class DbService 
 {
 	MySQLConnectionPool pool;
 	ApplicationWindow parent;
 	
+	/**
+	 * Constructor
+	 * @param parent
+	 */
 	DbService(ApplicationWindow parent)
 	{
 		pool = new MySQLConnectionPool();
 		this.parent=parent;
 	}
 
+	/**
+	 * Permanently delete film from base
+	 * @param tconst
+	 */
 	public void deleteFilm(String tconst) {
-		// TODO Auto-generated method stub
-		
+		final String[] tables = {"actors_in_films", "films", "films_genres", "inventory"};
+		Connection conn = null;
+		try
+		{
+			conn = pool.getConnection();
+			Statement statement = conn.createStatement();
+			for(String table:tables) {
+				String command = "DELETE FROM `imdb`.`" + table + "` WHERE `tconst`=" + tconst + ";";
+				statement.executeUpdate(command);
+			}
+			
+		}catch (SQLException e) {
+			//e.printStackTrace();
+		}finally {
+			if (conn != null) {
+			try {
+				pool.returnConnection(conn);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		}
 	}
 	
+	/**
+	 * Gets results of films extended search
+	 * @param input
+	 * @return
+	 */
 	HashMap<String,String> getFreeSearch(String input)
 	{
 		HashMap<String,String> result =new HashMap<String,String>();
@@ -59,7 +95,10 @@ class DbService
 		return result;
 	}
 	
-
+	/**
+	 * Make temporary table in database for giv faster answer 
+	 * @param param
+	 */
 	void makeTemporaryTable(String[] param)
 	{
 		Connection conn = null;
@@ -83,6 +122,12 @@ class DbService
 	}
 	}
 	
+	/**
+	 * Gets all avialabel parameters for search
+	 * 
+	 * @param num
+	 * @return
+	 */
 	public String[] getInitialValues(int num) {
 		ArrayList<String> result = new ArrayList<>();
 		String[] procedures = {"getTypes", "getGenres"};
@@ -111,6 +156,12 @@ class DbService
 			return (String[]) result.toArray();
 	}
 	
+	/**
+	 * Gets full film data from database if exists
+	 * 
+	 * @param tconst
+	 * @return
+	 */
 	HashMap<String,String> getFullFilmData(String tconst)
 	{
 		HashMap<String,String> result =new HashMap<String,String>();
@@ -144,6 +195,11 @@ class DbService
 		return result;
 	}
 	
+	/**
+	 * Add full film data to base
+	 * 
+	 * @param set
+	 */
 	void updateFullFilmTable(final HashMap<String,String> set)
 	{
 		Connection conn = null;
@@ -176,6 +232,12 @@ class DbService
 	}
 	}
 
+	/**
+	 * Get local poster filename if exists
+	 * 
+	 * @param uri
+	 * @return
+	 */
 	public String getPosterFileName(String uri) {
 		Connection conn = null;
 		String result=null;
@@ -202,6 +264,11 @@ class DbService
 		return result;
 	}
 
+	/**
+	 * Set localy stored poster filename
+	 * @param fName
+	 * @param uri
+	 */
 	public void updateImageFile(String fName, String uri) {
 		Connection conn = null;
 		try
