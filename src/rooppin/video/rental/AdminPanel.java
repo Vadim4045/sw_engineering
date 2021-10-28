@@ -5,6 +5,9 @@ import java.awt.event.*;
 import java.util.HashMap;
 import javax.swing.*;
 
+/**
+ * JPanel for search and get different data from database
+ */
 public class AdminPanel  extends JPanel implements ActionListener
 {
 	private ApplicationWindow parent;
@@ -25,6 +28,10 @@ public class AdminPanel  extends JPanel implements ActionListener
 		setVisible(true);
 	}
 	
+	/**
+	 * Make JPanel with all search options
+	 * @return TopPanel
+	 */
 	private Component makeTopPanel() {
 		String[] forButtons = {"User search", "Order search", "Film search"};
 		String[][] Options = {{"User by name", "Best users", "Worst users"},
@@ -49,6 +56,10 @@ public class AdminPanel  extends JPanel implements ActionListener
 		return top;
 	}
 	
+	/**
+	 * Make scrollpanel for view results of search
+	 * @return ScrollPanel
+	 */
 	private Component makeCentralPanel() {
 		centralPanel = new JPanel();
 		centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
@@ -59,7 +70,10 @@ public class AdminPanel  extends JPanel implements ActionListener
 		return scrollFrame;
 	}
 	
-
+	/**
+	 * Gets search results and arramge their on scroll panel
+	 * @param result
+	 */
 	private void fillScrollContent(HashMap<String,String> result) {
 		Thread thread = new Thread(){
 		    public void run(){
@@ -96,6 +110,9 @@ public class AdminPanel  extends JPanel implements ActionListener
 		  thread.start();
 	}
 
+	/**
+	 * Action event handler
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		JComponent curComponent = (JComponent) event.getSource();
@@ -111,7 +128,11 @@ public class AdminPanel  extends JPanel implements ActionListener
 		}
 	}
 	
-    
+    /**
+     * Gets string whith identificator of clicked item
+     * and make new tab on TapPanel whith corresponding content
+     * @param i String
+     */
     private void showDetails(String i) {
     	String s;
 		String[] set = i.split(":");

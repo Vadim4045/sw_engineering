@@ -21,7 +21,7 @@ public class AdminOrderView  extends AdminView
 	}
 
 	/**
-	 * Action event header
+	 * Action event handler
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

@@ -5,7 +5,9 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-@SuppressWarnings({"serial", "rawtypes"})
+/**
+ * User interface to extended search films in base
+ */
 public class SearchPanel extends JPanel
 {
 	private ApplicationWindow parent;
@@ -15,7 +17,10 @@ public class SearchPanel extends JPanel
 	private JTextField input;
 
 	
-	@SuppressWarnings("unchecked")
+	/**
+	 * Constructor
+	 * @param searchAppFrame
+	 */
 	SearchPanel(ApplicationWindow searchAppFrame)
 	{
 		this.parent=searchAppFrame;
@@ -77,6 +82,9 @@ public class SearchPanel extends JPanel
 		setVisible(true);
 	}
 	
+	/**
+	 * Launches search procedure by given parameters
+	 */
 	private void getFreeSearch()
 	{
 		Thread thread = new Thread(){
@@ -120,6 +128,10 @@ public class SearchPanel extends JPanel
 		  thread.start();
 	}
 	
+	/**
+	 * Collects search parameters into array
+	 * @return
+	 */
 	private String[] makeParamString()
 	{
 		String[] res = new String[4];

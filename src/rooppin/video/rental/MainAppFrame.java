@@ -6,11 +6,19 @@ import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The basic version of the main window, 
+ * implements the basic functions of the graphical arrangement of elements 
+ * and displaying messages for a given period of time
+ */
 @SuppressWarnings("serial")
 public class MainAppFrame extends JFrame
 {
 	protected JTabbedPane tabPanel;
 
+	/**
+	 * Constructor
+	 */
 	public MainAppFrame()
 	{
 		super("ProVideoRentals");
@@ -22,6 +30,12 @@ public class MainAppFrame extends JFrame
 		add(tabPanel,BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Gets JPanel and String for naming new Tab
+	 * Make new Tab on TabbetPane whith given content
+	 * @param s
+	 * @param panel
+	 */
 	void MakeNewTab(String s, JPanel panel)
 	{
 		removeTabByName(s);
@@ -69,11 +83,20 @@ public class MainAppFrame extends JFrame
 		setFocusToTab(s);
 	}
 	
+	/**
+	 * Gets String of tab name, invoke search function and remove finded tab
+	 * @param name
+	 */
 	void removeTabByName(String name) {
 		int idx = findTabByName(name);
 		if(idx>=0) tabPanel.remove(idx);
 	}
 	
+	/**
+	 * Gets tab name and find tab if exists
+	 * @param title String of tab name
+	 * @return finded tab
+	 */
 	protected int findTabByName(String title)  
 	{
 	  int tabCount = tabPanel.getTabCount();
@@ -85,12 +108,25 @@ public class MainAppFrame extends JFrame
 	  return -1;
 	}
 	
+	/**
+	 * Gets tab name , invoke tab search function and set focus on finded tab
+	 * @param s tab name
+	 */
 	protected void setFocusToTab(String s)
 	{
 		int idx = findTabByName(s);
-		tabPanel.setSelectedIndex(idx);
+		if(idx>=0) tabPanel.setSelectedIndex(idx);
 	}
 	
+	/**
+	 * Gets target(JLabel) to show message,
+	 * String whith given message and period of time
+	 * Invoke InfoMesegWithTimer class for start in enather thread
+	 * 
+	 * @param label
+	 * @param msg
+	 * @param seconds
+	 */
 	void infoMsgByPlace(JLabel label, String msg, int seconds) {
 		Thread thread = new Thread(){
 		    public void run(){
@@ -100,11 +136,22 @@ public class MainAppFrame extends JFrame
 		 thread.start();
 	}
 	
+	/**
+	 * Class for show temporary message on given target
+	 * in different thread
+	 */
 	class InfoMesegWithTimer {
 	    Timer timer;
 	    String msg, oldMsg;
 	    JLabel label;
 	    
+	    /**
+	     * Show given message on given target by given period time
+	     * 
+	     * @param label
+	     * @param msg
+	     * @param seconds
+	     */
 	    InfoMesegWithTimer(JLabel label, String msg, int seconds) {
 	    	this.msg=msg;
 	    	this.label=label;
@@ -116,6 +163,9 @@ public class MainAppFrame extends JFrame
 	        timer.schedule(new RemindTask(), seconds*1000);
 		}
 
+	    /**
+	     * Scheduler for return old message on target after given period time
+	     */
 	    class RemindTask extends TimerTask {
 	        public void run() {
 	        	 label.setText(oldMsg);
