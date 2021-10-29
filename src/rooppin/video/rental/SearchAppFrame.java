@@ -7,6 +7,7 @@ import java.util.*;
  * A logical continuation of the MainAppFrame class.
  * Implements the functions of searching for films in the database 
  * and loading a poster in a separate thread
+ * @author VADIM&ORI&MATAN
  */
 public class SearchAppFrame extends MainAppFrame
 {

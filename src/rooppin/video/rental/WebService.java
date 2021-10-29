@@ -11,13 +11,14 @@ import org.json.simple.parser.*;
 /**
  * Static web utility class
  * Implements all web access functions
+ * @author VADIM&ORI&MATAN
  */
 public class WebService
 {
 
 	/**
 	 * Gets film data from Imdb API by Imdb code
-	 * 
+	 *
 	 * @param tconst
 	 * @return
 	 * @throws MalformedURLException
@@ -34,9 +35,9 @@ public class WebService
 		 HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		 conn.setRequestMethod("GET");
 		 conn.connect();
-		 
+
 		 int responsecode = conn.getResponseCode();
-		 
+
 		 if(responsecode != 200) throw new RuntimeException("HttpResponseCode: " +responsecode);
 		 else
 		 {
@@ -48,11 +49,11 @@ public class WebService
 			 }
 
 			 sc.close();
-			 
+
 			 result = jsonParse(inline,"");
 		 	}
 		} catch (IOException |RuntimeException e) {
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,7 +81,7 @@ public class WebService
 
 	/**
 	 * Parse JSON response to HashMap
-	 * 
+	 *
 	 * @param data
 	 * @param post
 	 * @return
@@ -96,12 +97,12 @@ public class WebService
 		try
 		{
 			jobj = (JSONObject)parse.parse(data);
-			
+
 			if (jobj.size() > 0) {
 		          for (Iterator iterator = jobj.keySet().iterator(); iterator.hasNext(); )
 		          {
 		            String key = (String) iterator.next();
-		            
+
 		            if(jobj.get(key) instanceof JSONArray) continue;
 
 		            String val = (String) jobj.get(key);
@@ -114,7 +115,7 @@ public class WebService
 		{
 			e.printStackTrace();
 		}
-		
+
 		 return set;
 	}
 }

@@ -10,6 +10,7 @@ import java.util.TimerTask;
  * The basic version of the main window, 
  * implements the basic functions of the graphical arrangement of elements 
  * and displaying messages for a given period of time
+ * @author VADIM&ORI&MATAN
  */
 @SuppressWarnings("serial")
 public class MainAppFrame extends JFrame

@@ -5,6 +5,7 @@ import javax.swing.*;
 
 /**
  * JPanel for view film in admin mode
+ * @author VADIM&ORI&MATAN
  */
 public class AdminFilmView extends AdminView
 {

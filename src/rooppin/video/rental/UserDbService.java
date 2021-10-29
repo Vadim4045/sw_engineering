@@ -6,6 +6,7 @@ import java.util.*;
 /**
  *  A logical continuation of the DbService class.
  * Implements other database operations
+ * @author VADIM&ORI&MATAN
  */
 class UserDbService extends DbService
 {

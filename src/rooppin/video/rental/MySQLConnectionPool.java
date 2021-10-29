@@ -8,6 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+/**
+ * Handle database connection pool
+ * 
+ * @author VADIM&ORI&MATAN
+ *
+ */
 public class MySQLConnectionPool {
 	private String databaseUrl = "jdbc:mysql://localhost/imdb";
 	private String userName = "my_programm";

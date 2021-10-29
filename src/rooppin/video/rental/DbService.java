@@ -5,6 +5,7 @@ import java.util.*;
 
 /**
  * Utilitis class to fulfill all database procedures
+ * @author VADIM&ORI&MATAN
  */
 class DbService 
 {

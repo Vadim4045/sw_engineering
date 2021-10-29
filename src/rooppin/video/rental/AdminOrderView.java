@@ -5,6 +5,7 @@ import javax.swing.*;
 
 /**
  * JPanel for view order on admin mode
+ * @author VADIM&ORI&MATAN
  */
 public class AdminOrderView  extends AdminView
 {

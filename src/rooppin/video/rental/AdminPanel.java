@@ -7,6 +7,7 @@ import javax.swing.*;
 
 /**
  * JPanel for search and get different data from database
+ * @author VADIM&ORI&MATAN
  */
 public class AdminPanel  extends JPanel implements ActionListener
 {

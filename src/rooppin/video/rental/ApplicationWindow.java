@@ -8,8 +8,7 @@ import javax.swing.*;
 /**
  * A logical continuation of the SearchAppFrame class.
  * Implements all the functionality of links
- * 
- * @author _GoLeM_
+ * @author VADIM&ORI&MATAN
  *
  */
 public class ApplicationWindow extends SearchAppFrame

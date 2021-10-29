@@ -7,6 +7,11 @@ import javax.swing.*;
 
 
 @SuppressWarnings("serial")
+/**
+ * User class.
+ * @author VADIM&ORI&MATAN
+ *{@link Person} {@link ActionListener}
+ */
 public class User extends Person  implements ActionListener {
 	
 	protected ApplicationWindow parent;
@@ -18,6 +23,10 @@ public class User extends Person  implements ActionListener {
 	int level;
 	protected final String [] details= {"Id:","Name:","Telephone:","Email:","City:","Street:","House:","Entry:","Appartment:"};
 	
+	/**
+	 * Default Constructor
+	 * @param parent {@link ApplicationWindow}
+	 */
 	public User(ApplicationWindow parent)
 	{
 		this.parent = parent;
@@ -25,6 +34,11 @@ public class User extends Person  implements ActionListener {
 		init();
 	}
 	
+	/**
+	 * Parameter Constructor
+	 * @param parent {@link ApplicationWindow}
+	 * @param data {@link HashMap}
+	 */
 	public User(ApplicationWindow parent, HashMap<String,String> data)
 	{
 		super(data);
@@ -33,6 +47,9 @@ public class User extends Person  implements ActionListener {
 		init();		
 	}
 	
+	/**
+	 * init method set panels in the frame
+	 */
 	void init()
 	{
         setLayout(new BorderLayout(5, 5));
@@ -42,6 +59,10 @@ public class User extends Person  implements ActionListener {
         add(makeBottomPanel(), BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * makeTopPanel method create top panel
+	 * @return JPanel {@link JPanel}
+	 */
 	protected JPanel makeTopPanel()
 	{
 		JPanel topPanel = new JPanel();
@@ -51,6 +72,10 @@ public class User extends Person  implements ActionListener {
 		return topPanel;
 	}
 	
+	/**
+	 * makeBottomPanel method create bottom panel with controlls
+	 * @return JPanel {@link JPanel}
+	 */
 	private JPanel makeBottomPanel()
 	{
 		String[] forBtn = {"Submit","Clear all"};
@@ -67,6 +92,12 @@ public class User extends Person  implements ActionListener {
 		return bottomPanel;
 	}
 	
+	/**
+	 * makeLeftPanel method create left panel
+	 * with all user data
+	 * 
+	 * @return JPanel {@link JPanel}
+	 */
 	protected JPanel makeLeftPanel()
 	{
 		JPanel tmpPanel;
@@ -101,6 +132,12 @@ public class User extends Person  implements ActionListener {
 		return centralPanel;
 	}
 	
+	/**
+	 * makeRightPanel method create right panel
+	 * with passwords and LICENSE AGREEMENT
+	 * 
+	 * @return JPanel {@link JPanel}
+	 */
 	private JPanel makeRightPanel()
 	{
 		String[] details = {"Enter password", "Confirm password"};
@@ -130,6 +167,10 @@ public class User extends Person  implements ActionListener {
 		return centralPanel;
 	}
 
+	/**
+	 * makeLicensePanel method create license panel
+	 * @return Component {@link Component}
+	 */
 	protected Component makeLicensePanel() {
 		String[] content = {"LIMITED SINGLE-USE VIDEO LICENSE AGREEMENT\r\n"
 				, "\r\n"
@@ -173,6 +214,11 @@ public class User extends Person  implements ActionListener {
 		return scrollFrame;
 	}
 	
+	/**
+	 * fillScrollContent method for agreement user using page.
+	 * @param scroll {@link JPanel}
+	 * @param content {@link String}
+	 */
 	private void fillScrollContent(JPanel scroll, String[] content) {
 		
 		int maxLen=90;
@@ -201,7 +247,10 @@ public class User extends Person  implements ActionListener {
 		scroll.add(agree);
 	}
 	
-	
+	/**
+	 * commit method check if the fields are correct.
+	 * @return boolean 
+	 */
 	protected boolean commit()
 	{
 		Color col = new Color(235,235,235);
@@ -221,7 +270,11 @@ public class User extends Person  implements ActionListener {
 
 		return true;
 	}
-		
+	
+	/**
+	 * passCheck method check if the password field is correct.
+	 * @return boolean 
+	 */
 	protected boolean passCheck() {
 		for(int i=0;i<pases.length;i++)
 			if(pases[i].getPassword().length==0) return false;
@@ -233,6 +286,10 @@ public class User extends Person  implements ActionListener {
 	}
 	
 	@Override
+	/**
+	 * actionPerformed method manage evented handlers 
+	 * @param event {@link ActionEvent}
+	 */
 	public void actionPerformed(ActionEvent event) {
 		JComponent curComponent = (JComponent) event.getSource();
 		if(curComponent == buttons[0])

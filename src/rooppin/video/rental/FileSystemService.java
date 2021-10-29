@@ -5,8 +5,19 @@ import java.io.*;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Static class for all file system operations
+ * @author VADIM&ORI&MATAN
+ *
+ */
 class FileSystemService {
 
+	/**
+	 * Save film poster image in local storage
+	 * @param image
+	 * @param name
+	 * @return
+	 */
 	static boolean saveImage(BufferedImage image,String name)
 	{
 		final String dir ="G:/Posters";
@@ -21,6 +32,11 @@ class FileSystemService {
 		return false;
 	 }
 
+	/**
+	 * Gets poster image from local storage if exists
+	 * @param fileName
+	 * @return
+	 */
 	static BufferedImage getImageFromFile(String fileName) {
 		final String dir ="G:/Posters";
 		BufferedImage img = null;
@@ -31,7 +47,14 @@ class FileSystemService {
 		return null;
 	}
 	
+	/**
+	 * Make 32 bit array from ciclic xor user email and password
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
 	static byte[] encode(String s1, String s2) {
+		if(s1.length()==s2.length()) s1=s1 + "w";
 		int length = 32, idx=0;
 		byte[] a = s1.getBytes();
 		byte[] b = s2.getBytes();
@@ -42,6 +65,11 @@ class FileSystemService {
 	   return str;
 	}
 	
+	/**
+	 * Find given string position in passwords file if exists
+	 * @param input
+	 * @return
+	 */
 	static long getPassFromFile(byte[] input) {
 		File f = new File("pass");
 		long position;
@@ -62,6 +90,12 @@ class FileSystemService {
 		return -1;
 	}
 	
+	/**
+	 * Store encoded string in passwords file
+	 * 
+	 * @param encodedPass
+	 * @param place
+	 */
 	static void storePassToFile(byte[] encodedPass, long place) {
 		
 		try(RandomAccessFile raf = new RandomAccessFile(new File("pass"), "rw");) {
@@ -74,6 +108,11 @@ class FileSystemService {
 		}
 	}
 
+	/**
+	 * Change existing password encoded string
+	 * @param s
+	 * @return
+	 */
 	static boolean updatePasswordInFile(String[]s) {
 		long place = getPassFromFile(encode(s[0],s[1]));
 		if(place!=-1) {
@@ -83,6 +122,13 @@ class FileSystemService {
 		return false;
 	}
 	
+	/**
+	 * Update existing encoded string on email change
+	 * @param oldEmail
+	 * @param newEmail
+	 * @param pass
+	 * @return
+	 */
 	static boolean updateEmailInFile(String oldEmail, String newEmail, String pass) {
 		long place = getPassFromFile(encode(oldEmail,pass));
 		if(place!=-1) {

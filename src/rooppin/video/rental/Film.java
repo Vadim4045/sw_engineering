@@ -8,7 +8,11 @@ import javax.swing.*;
 import java.util.concurrent.*;
 
 
-
+/**
+ * Film class.
+ * @author VADIM&ORI&MATAN
+ *{@link JPanel} {@link ActionListener}
+ */
 @SuppressWarnings("serial")
 class Film extends JPanel implements ActionListener
 {
@@ -19,6 +23,12 @@ class Film extends JPanel implements ActionListener
 	JPanel lPanel, rPanel;
 	JLabel informationLabel;
 	
+	
+	/**
+	 *  Parameter Constructor of Film object.
+	 * @param parent {@link ApplicationWindow}
+	 * @param set {@link HashMap}
+	 */
 	Film(ApplicationWindow parent, final HashMap<String,String> set)
 	{
 		this.parent=parent;
@@ -77,6 +87,12 @@ class Film extends JPanel implements ActionListener
 		add(rPanel);
 
 	}
+	/**
+	 *  fillContent method fill the film panel with labels.
+	 * @param scroll {@link JPanel}
+	 * @param content {@link String}
+	 * @param maxLen
+	 */
 
 	private void fillContent(JPanel scroll, String content, int maxLen) {
 			String[] tempStr = content.split(" ");
@@ -95,7 +111,10 @@ class Film extends JPanel implements ActionListener
 				scroll.add(tmp);
 			}
 	}
-	
+	/**
+	 * getFuturePoster method fill image of movie.
+	 * @param img {@link Future} {@link BufferedImage}
+	 */
 	private void getFuturePoster(Future<BufferedImage> img)
 	{
 		try {
@@ -120,7 +139,13 @@ class Film extends JPanel implements ActionListener
 		}
 	}
 
+	
+	
 	@Override
+	/**
+	 * actionPerformed method manage message event.
+	 * @param arg0 {@link ActionEvent}
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		if(parent.order==null) {
 			parent.infoMsgByPlace(informationLabel, "For registered users only!", 10);
@@ -131,7 +156,10 @@ class Film extends JPanel implements ActionListener
 		}
 		
 	}
-
+/**
+ * FuturePoster class creates future poster.
+ * @author VADIM&ORI&MATAN
+ */
 	class FuturePoster implements Callable<BufferedImage>
 	{
 		HashMap<String,String> set;
@@ -144,6 +172,11 @@ class Film extends JPanel implements ActionListener
 		}
 	
 		@Override
+		/**
+		 * call method insert poster
+		 * @return BufferedImage {@link BufferedImage}
+		 * @throws Exception {@link Exception}
+		 */
 		public BufferedImage call() throws Exception {
 			if(set.get("Poster").length()>5) return parent.getPoster(set.get("Poster"), set.get("imdbID"));
 			else return null;

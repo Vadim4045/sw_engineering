@@ -7,6 +7,7 @@ import javax.swing.*;
 
 /**
  * User interface to extended search films in base
+ * @author VADIM&ORI&MATAN
  */
 public class SearchPanel extends JPanel
 {

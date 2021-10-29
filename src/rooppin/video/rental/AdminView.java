@@ -6,6 +6,7 @@ import javax.swing.*;
 
 /**
  * Abstract class for extends to all admin views
+ * @author VADIM&ORI&MATAN
  */
 public abstract class AdminView extends JPanel implements ActionListener
 {

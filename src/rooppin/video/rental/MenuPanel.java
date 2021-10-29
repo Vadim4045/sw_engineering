@@ -7,6 +7,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 /**
  * Menu bar for main window
+ * @author VADIM&ORI&MATAN
  */
 class MenuPanel extends JMenuBar implements ActionListener
 {

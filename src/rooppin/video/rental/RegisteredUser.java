@@ -19,8 +19,19 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
+/**
+ *  A logical continuation of the User class.
+ * @author VADIM&ORI&MATAN
+ *
+ */
 class RegisteredUser extends User
 {
+	/**
+	 * Constructor with parameters
+	 * 
+	 * @param parent
+	 * @param data
+	 */
 	public RegisteredUser(ApplicationWindow parent, HashMap<String,String> data)
 	{
 		super(parent, data);
@@ -28,6 +39,9 @@ class RegisteredUser extends User
 	}
 	
 	@Override
+	/**
+	 * Initial all graphic elements
+	 */
 	void init() {
 		setLayout(new BorderLayout(5, 5));
         add(makeTopPanel(), BorderLayout.NORTH);
@@ -40,6 +54,10 @@ class RegisteredUser extends User
 		detailsSetEditable(false);
 	}
 	
+	/**
+	 * Make buttom panel with controlls
+	 * @return
+	 */
 	private JPanel makeBottomPanel()
 	{
 		String[] forBtn = {"Edit my data","Change password","Submit","Discard changes","Order"};
@@ -56,6 +74,10 @@ class RegisteredUser extends User
 		return bottomPanel;
 	}
 	
+	/**
+	 * Make right panel
+	 * @return
+	 */
 	private JPanel makeRightPanel()
 	{
 		String[] details = {"Enter old password", "Enter new password:", "Confirm new password"};
@@ -86,6 +108,11 @@ class RegisteredUser extends User
 		return centralPanel;
 	}
 	
+	/**
+	 * Return value of given field by name
+	 * @param field
+	 * @return
+	 */
 	String getFieldByName(String field)
 	{
 		switch(field) {
@@ -114,6 +141,9 @@ class RegisteredUser extends User
 		}
 	}
 	
+	/**
+	 * Fill all JTextFields by class field values
+	 */
 	private void feelTextFields()
 	{
 		if(getId().equals("")) return;
@@ -130,18 +160,29 @@ class RegisteredUser extends User
 		for(JPasswordField p:pases) p.setText("");
 	}
 	
+	/**
+	 * Set all JTextFields are editable
+	 * @param state
+	 */
 	void detailsSetEditable(boolean state)
 	{
 		int start = (level>0 && state)? 1:0;
 		for(int i=start;i<userDetails.length;i++) userDetails[i].setEditable(state);
 	}
 	
+	/**
+	 * Set editable password fields
+	 * @param state
+	 */
 	void pasesSetEditable(boolean state)
 	{
 		for(JTextField t:pases) t.setEditable(state);
 	}
 		
 	@Override
+	/**
+	 * Action eveted handler
+	 */
 	public void actionPerformed(ActionEvent event) {
 		JComponent curComponent = (JComponent) event.getSource();
 		

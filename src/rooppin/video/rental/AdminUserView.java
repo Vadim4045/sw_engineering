@@ -5,6 +5,7 @@ import javax.swing.*;
 
 /**
  * JPanel for view user details in admin mode
+ * @author VADIM&ORI&MATAN
  */
 public class AdminUserView  extends AdminView
 {

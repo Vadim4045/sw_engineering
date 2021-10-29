@@ -6,6 +6,13 @@ import java.util.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
+/**
+ * This class handle list of liked films
+ * and manage its to rent order
+ * 
+ * @author VADIM&ORI&MATAN
+ *
+ */
 public class OrderPanel extends JPanel implements ActionListener
 {
 	private ApplicationWindow parent;
@@ -16,6 +23,11 @@ public class OrderPanel extends JPanel implements ActionListener
 	private JLabel[] labels;
 	private JButton[] btns;
 	
+	/**
+	 * Constructor for new order
+	 * 
+	 * @param parent
+	 */
 	OrderPanel(ApplicationWindow parent) {
 		this.parent = parent;
 		orderNumber = parent.getOrderNumber();
@@ -24,6 +36,11 @@ public class OrderPanel extends JPanel implements ActionListener
 		init();		
 	}
 	
+	/**
+	 * Constructor with parameters to show existing order
+	 * @param parent
+	 * @param orderNumber
+	 */
 	OrderPanel(ApplicationWindow parent, int orderNumber){
 		this.orderNumber = orderNumber;
 		orderedInStock = parent.getOrderedFilms(orderNumber);
@@ -31,6 +48,9 @@ public class OrderPanel extends JPanel implements ActionListener
 		init();
 	}
 	
+	/**
+	 * Make all panels
+	 */
 	private void init() 
 	{
 		String[] forLabels = {"Order number: " + String.valueOf(orderNumber), "Ordered films:"};
@@ -60,6 +80,9 @@ public class OrderPanel extends JPanel implements ActionListener
 		add(btnPanel, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Show all films, are redy to rent
+	 */
 	void showOrder() {
 		JPanel tmp;
 		JButton btn;
@@ -88,6 +111,10 @@ public class OrderPanel extends JPanel implements ActionListener
 		repaint();
 	}
 	
+	/**
+	 * Make controll panel
+	 * @return
+	 */
 	JPanel getButtons() {
 		String[] forBtn = {"Sabmit", "Clear all","Pay"};
 		JPanel btnPanel = new JPanel();
@@ -102,12 +129,21 @@ public class OrderPanel extends JPanel implements ActionListener
 		return btnPanel;
 	}
 	
+	/**
+	 * Add film to order list
+	 * @param film
+	 * @param inv
+	 * @return
+	 */
 	boolean addFilmToOrder(Film film, String inv) {
 		orderedInStock.put(inv, film);
 		if(orderedInStock.containsKey(inv))return true;
 		return false;
 	}
 	
+	/**
+	 * Events handler
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		switch(event.getActionCommand()) {
